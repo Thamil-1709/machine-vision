@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:,\" />
+    <style>
+      body {
+        text-align: center;
+        font-family: "Trebuchet MS", Arial;
+        margin: auto;
+      }
+      .slider {
+        width: 150px;
+        display: inline-block;
+        margin: 10px;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>ESP32 COnveyor Controller</h1>
+
+    <hr />
+
+    <div id="motor1Controls">
+      <h2>Motor 1</h2>
+      <p>RPM: <span id="motor1RPM">0</span></p>
+      <input
+        type="range"
+        min="0"
+        max="255"
+        class="slider"
+        id="motor1Slider"
+        onchange="setMotor(1, this.value)"
+        value="0"
+      />
+      <select id="motor1Dir">
+        <option value="forward">Forward</option>
+        <option value="backward">Backward</option>
+      </select>
+    </div>
+    <div id="motor2Controls">
+      <h2>Motor 2</h2>
+      <p>RPM: <span id="motor2RPM">0</span></p>
+      <input
+        type="range"
+        min="0"
+        max="255"
+        class="slider"
+        id="motor2Slider"
+        onchange="setMotor(2, this.value)"
+        value="0"
+      />
+      <select id="motor2Dir">
+        <option value="forward">Forward</option>
+        <option value="backward">Backward</option>
+      </select>
+    </div>
+    <script>
+      var motorSelect = document.getElementById("motorSelect");
+      var motor1RPM = document.getElementById("motor1RPM");
+      var motor2RPM = document.getElementById("motor2RPM");
+    
+      $.ajaxSetup({ timeout: 1000 });
+      function setMotor(motor, rpm) {
+        var direction = $("#motor" + motor + "Dir").val();
+        document.getElementById(`motor${motor}RPM`).innerHTML = rpm;
+        $.get("/?motor=" + motor + "&rpm=" + rpm + "&direction=" + direction );
+      }
+    </script>
+  </body>
+</html>
