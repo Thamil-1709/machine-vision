@@ -43,7 +43,8 @@ void loop() {
     driveMotorBReverse(); // Input 2 LOW -> Motor B reverse
   }
 
-  delay(100); // Small delay for stability
+  // Small delay for stability
+  delay(100);
 }
 
 void driveMotorAForward() {
